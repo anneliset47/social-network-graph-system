@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and discussion
+    url: https://github.com/anneliset47/social-network-graph-system/discussions
+    about: Ask questions or discuss ideas before opening a new issue.

@@ -1,134 +1,93 @@
 # Social Network Graph System
 
-## Overview
+[![CI](https://github.com/anneliset47/social-network-graph-system/actions/workflows/ci.yml/badge.svg)](https://github.com/anneliset47/social-network-graph-system/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+![Status](https://img.shields.io/badge/status-actively%20maintained-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-97%25-success)
 
-This project implements a graph-based social network system using adjacency lists and breadth-first search (BFS).
+Production-style Python project demonstrating graph data structures, BFS traversal, and simple recommendation scoring on a social network.
 
-The system models user relationships as a graph and supports:
+## Highlights
 
-- First-degree connection retrieval
-- Second-degree connection retrieval (via BFS)
-- Third-degree connection retrieval (via BFS)
-- Interest-based friend recommendations
-- Time and space complexity analysis
+- Clean `src/` package layout with typed core graph API
+- Deterministic sample data powering both tests and demo
+- Reproducible workflow (`requirements-dev.txt`, `Makefile`, pre-commit, CI)
+- Verified quality gates (`make ci-check`)
 
-This project demonstrates core data structures and algorithmic design principles from Data Structures & Algorithms.
+## What this demonstrates
 
----
+- Graph modeling using adjacency lists and hash maps
+- Exact-degree reachability via breadth-first search (BFS)
+- Interest-based recommendation scoring for non-connected users
+- Reproducible engineering workflow (lockfile + Makefile + pre-commit + CI)
+- Technical communication with notebook analysis and written report
 
-## System Design
+## Repository layout
 
-The social network is represented as:
-
-- **Adjacency List (Dictionary of Dictionaries)**  
-  - Keys: User IDs  
-  - Values: Connected users (weighted edges)
-
-Additional dictionaries store user attributes:
-
-- Hobbies
-- Music preferences
-- Movie preferences
-
-Edges can be weighted based on shared interests.
-
----
-
-## Implemented Algorithms
-
-### 1. First-Degree Connections
-
-Direct lookup from adjacency list.
-
-**Time Complexity:** O(n)  
-**Space Complexity:** O(n)
-
----
-
-### 2. Second-Degree Connections
-
-Implemented using Breadth-First Search (BFS) with a queue and visited set.
-
-Traversal stops at depth = 2.
-
-**Time Complexity:** O(k₁ + k₂)  
-**Space Complexity:** O(n + k₂)
-
-Where:
-- k₁ = number of first-degree connections
-- k₂ = number of second-degree connections
-
----
-
-### 3. Third-Degree Connections
-
-Same BFS structure, extended to depth = 3.
-
-**Time Complexity:** O(k₁ + k₂ + k₃)  
-**Space Complexity:** O(n + k₃)
-
----
-
-### 4. Interest-Based Friend Recommendation
-
-Users are compared pairwise based on:
-
-- Shared hobbies
-- Shared music preferences
-- Shared movie preferences
-
-Each shared category adds 1 similarity point (0–3 scale).
-
-Connections are suggested if similarity ≥ 1.
-
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(n²)
-
----
-
-## Scalability Considerations
-
-The adjacency list structure scales efficiently for large graphs.
-
-Potential optimizations:
-- Limit recommendations to top-k most similar users
-- Precompute similarity buckets
-- Use priority queues for ranked suggestions
-- Combine multi-degree traversal into a unified function
-
-The current implementation is suitable for conceptual scalability to large user networks.
-
----
-
-## Concepts Demonstrated
-
-- Graph Representation
-- Adjacency Lists
-- Breadth-First Search (BFS)
-- Queue Data Structure
-- Sets for visited tracking
-- Similarity Scoring
-- Algorithmic Complexity Analysis
-- System Design Thinking
-
----
-
-## Repository Structure
-
-```
+```text
 social-network-graph-system/
-│
+├── .github/workflows/ci.yml
+├── data/
 ├── notebooks/
-│   └── social_network_graph_system.ipynb
-│
+│   └── social_network_graph_analysis.py
 ├── report/
-│   └── social_network_graph_system_report.pdf
+│   └── social_network_graph_report.pdf
+├── src/social_network_graph_system/
+│   ├── demo.py
+│   ├── graph.py
+│   └── sample_data.py
+├── tests/
+│   └── test_graph.py
+├── Makefile
+├── pyproject.toml
+└── requirements-dev.txt
 ```
 
----
+## Quickstart
 
-## Educational Context
+```bash
+python -m venv .venv
+source .venv/bin/activate
+make install-locked
+make ci-check
+make demo
+```
 
-Developed as part of DTSC 5501: Data Structures & Algorithms.
+## Developer workflow
 
-This project demonstrates applied graph theory and traversal algorithms in a real-world social network context.
+- `make help` — list all available tasks
+- `make format` — auto-fix lint and format issues
+- `make lint` — run Ruff checks
+- `make test` — run tests with coverage
+- `make ci-check` — run lockfile, lint, and tests
+- `make notebook` — open analysis script in Jupyter Lab
+- `make install-hooks` — install pre-commit hooks
+
+## Core API
+
+Main class: `SocialGraph` (`src/social_network_graph_system/graph.py`)
+
+- `first_degree_connections(user_id)`
+- `connections_at_degree(user_id, degree)`
+- `second_degree_connections(user_id)`
+- `third_degree_connections(user_id)`
+- `suggest_connections_based_on_interests()`
+
+## Reproducibility guarantees
+
+- Pinned tool and dependency lockfile in `requirements-dev.txt`
+- Deterministic sample data shared by demo and tests
+- CI on push/pull request for Python 3.11 and 3.12
+- Local quality gates mirrored from CI (`make ci-check`)
+
+## Recruiter summary
+
+- **Algorithms:** graph traversal, shortest-path distance layering, similarity scoring
+- **Engineering:** package layout (`src/`), automated quality checks, reproducible setup
+- **Communication:** accompanying analysis notebook script and formal report PDF
+
+## Next enhancements
+
+- Weighted recommendation ranking (mutual friends + preference overlap)
+- Graph visualization for network exploration
+- Synthetic-data benchmark for scale testing

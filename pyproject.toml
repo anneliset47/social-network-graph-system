@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "social-network-graph-system"
+version = "0.1.0"
+description = "Graph-based social network analysis with BFS traversal and interest-based recommendations."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [
+  { name = "Annelise Thorn" }
+]
+keywords = ["graph", "algorithms", "social-network", "bfs", "recommendation-system", "python"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: Other/Proprietary License",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/anneliset47/social-network-graph-system"
+Repository = "https://github.com/anneliset47/social-network-graph-system"
+Issues = "https://github.com/anneliset47/social-network-graph-system/issues"
+
+[project.scripts]
+social-graph-demo = "social_network_graph_system.demo:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-cov>=6.0.0",
+  "ruff>=0.7.0",
+  "jupyter>=1.1.0",
+  "pip-tools>=7.4.0",
+  "pre-commit>=4.0.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.coverage.run]
+branch = true
+source = ["social_network_graph_system"]
+omit = ["src/social_network_graph_system/demo.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 90

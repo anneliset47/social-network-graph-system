@@ -1,0 +1,9 @@
+# Default code owners for the repository
+* @anneliset47
+
+# CI and automation
+/.github/workflows/ @anneliset47
+
+# Core package
+/src/ @anneliset47
+/tests/ @anneliset47
